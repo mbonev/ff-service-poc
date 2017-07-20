@@ -1,0 +1,5 @@
+# Must be overriden with environment variables
+# AMS_USER_NAME and AMS_USER_PASSWORD
+ams:
+  userName: shangri
+  userPassword: llama

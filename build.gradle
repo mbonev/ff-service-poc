@@ -29,6 +29,29 @@ repositories {
 	maven { url "https://repo.spring.io/milestone" }
 }
 
+sourceSets {
+	integrationTest {
+		java {
+            // So that we can compile against the business classes
+            compileClasspath += main.output
+            // So that we can compile against the libs used by the business classes
+            //compileClasspath += main.compileClasspath
+            // So that we can compile against the unit test classes
+            //compileClasspath += test.output
+            // So that we can compile against the libs used by the unit test classes (JUnit, Spring test support, ...):
+            //compileClasspath += test.compileClasspath
+
+			srcDir file('src/integration-test/java')
+		}
+		resources.srcDir file('src/integration-test/resources')
+	}
+}
+
+
+configurations {
+    integrationTestCompile.extendsFrom testCompile
+    integrationTestRuntime.extendsFrom testRuntime
+ }
 
 dependencies {
 	compile('org.springframework.boot:spring-boot-starter-actuator')
@@ -40,6 +63,9 @@ dependencies {
 
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 	testCompile('org.springframework.security:spring-security-test')
+
+    integrationTestCompile('org.springframework.boot:spring-boot-starter-test')
+    integrationTestCompile('org.springframework.restdocs:spring-restdocs-mockmvc')
 }
 
 compileJava.dependsOn(processResources)

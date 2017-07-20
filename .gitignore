@@ -7,6 +7,7 @@
 
 target/
 build/
+classes/
 
 #IntelliJ files
 **/*.iml

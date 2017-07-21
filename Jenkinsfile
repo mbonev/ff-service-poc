@@ -15,6 +15,10 @@ node {
         stage('Run unit tests') {
             sh './gradlew test'
         }
+        
+        stage('Run integration tests') {
+            sh './gradlew intTest'
+        }
 
         echo 'build passed...'
     } catch (e) {

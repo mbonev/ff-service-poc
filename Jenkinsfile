@@ -6,6 +6,8 @@ node {
 
         stage('prepare') {
             checkout scm
+            sh 'pwd'
+            sh 'ls -la'
             sh './gradlew clean'
         }
 

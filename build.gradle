@@ -30,16 +30,19 @@ repositories {
 }
 
 sourceSets {
+    //a new separate source set for integration tests
 	integrationTest {
 		java {
-            // So that we can compile against the business classes
+            //compileClasspath
+            //The classpath to use when compiling the source files of this source set.
+
+            //main.output
+            //The output files of the source set, containing its compiled classes and resources.
             compileClasspath += main.output
-            // So that we can compile against the libs used by the business classes
-            //compileClasspath += main.compileClasspath
-            // So that we can compile against the unit test classes
-            //compileClasspath += test.output
-            // So that we can compile against the libs used by the unit test classes (JUnit, Spring test support, ...):
-            //compileClasspath += test.compileClasspath
+
+            //runtimeClasspath
+            //The classpath to use when executing the classes of this source set.
+            runtimeClasspath += main.output
 
 			srcDir file('src/integration-test/java')
 		}
@@ -52,6 +55,15 @@ configurations {
     integrationTestCompile.extendsFrom testCompile
     integrationTestRuntime.extendsFrom testRuntime
  }
+
+task intTest(type: Test)
+
+intTest {
+    group 'Build'
+    description 'Executes the integration tests.'
+	testClassesDir = sourceSets.integrationTest.output.classesDir
+	classpath = sourceSets.integrationTest.runtimeClasspath
+}
 
 dependencies {
 	compile('org.springframework.boot:spring-boot-starter-actuator')

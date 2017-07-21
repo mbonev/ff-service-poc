@@ -6,7 +6,7 @@ node {
 
         stage('prepare') {
             checkout scm
-            sh 'gradlew clean'
+            sh './gradlew clean'
         }
 
         echo 'build passed...'
